@@ -1,38 +1,69 @@
 
 import './App.css';
-import Header from "./Header";
-import Content from "./Content";
-import Footer from "./Footer";
+import Counter from "./Counter";
+import React, {useState} from "react";
+import NewCounter from "./NewCounter";
 
 function App() {
-  const menuItem = [
-    {text: 'Home', link: 'home-page'},
-    {text: 'Products', link: 'home-page2'},
-    {text: 'Price', link: 'home-page3'},
-    {text: 'Home4', link: 'home-page4'},
+
+
+  const startCounters = [
+    {id: 1, name: 'Counter 1', count: 1},
+    {id: 2, name: 'Counter 2', count: 2},
+    {id: 3, name: 'Counter 3', count: 3},
+    {id: 4, name: 'Counter 4', count: 5},
   ]
 
 
-  const menuFooter = [
-    [{text: 'HomeF', link: 'home-page', link2: 'home-page', },
-    {text: 'ProductsF', link: 'home-page2', link2: 'home-page',}],
-    [{text: 'PriceF', link: 'home-page3', link2: 'home-page',},
-    {text: 'Home4F', link: 'home-page4', link2: 'home-page',}]
+  const [counters, setTotalCount] = useState(startCounters)
 
-  ]
+  const countIncrease= (id) => {
+    console.log(id)
+    const newCounter = counters.map(el => (el.id===id)? {...el, count: el.count + 1}: el)
+    setTotalCount(newCounter)
+  }
+    const countDecrease= (id) => {
+      const newCounter = counters.map(el => (el.id===id)? {...el, count: el.count - 1}: el)
+      setTotalCount(newCounter)
+    }
 
-  const  textFooter = 'FooterText';
+    const resetTotalCount = () =>{
+      const newCounter = counters.map(el => ({...el, count:0}))
+      setTotalCount(newCounter)
+    }
 
-  const buttonClicked = (name) => {
-    console.log("Clicked!" + name)
+    const countReset = (id) =>{
+      const newCounter = counters.map(el => (el.id===id)? {...el, count: 0}: el)
+      setTotalCount(newCounter)
+    }
+
+  const countRemove = (id) =>{
+    const newCounter = counters.filter(el => el.id !== id)
+    setTotalCount(newCounter)
+  }
+
+  const countAdd= (name, count) =>{
+
+    const newCounter = [...counters, {
+      id: Math.random(),
+      name:name,
+      count: Number(count),
+    }]
+    setTotalCount(newCounter);
   }
 
   return (
     <div className="App">
-      <Header items={menuItem}/>
-        <Content bc={buttonClicked}/>
-        <Footer items={menuFooter} textFooter={textFooter}/>
-
+      Total: {counters.reduce((acc, cur) => acc + cur.count, 0)}
+      <button onClick={resetTotalCount}>Reset</button>
+        {counters.map(el=><Counter key={el.id}
+                                   counter={el}
+                                   countIncrease={countIncrease}
+                                   countDecrease={countDecrease}
+                                   countReset={countReset}
+                                   countRemove={countRemove}/>
+            )}
+      <NewCounter countAdd={countAdd}/>
     </div>
   );
 }
