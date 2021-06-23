@@ -1,5 +1,6 @@
 import './App.css';
 import React, {useState} from "react";
+import ConfirmDeleteCounter from "./ConfirmDeleteCounter";
 
 function NewCounter(props) {
 
@@ -25,12 +26,23 @@ function NewCounter(props) {
 
     return (
         <div>
-            CounterName
-            <input type="text" name="name" value={name} id="" onChange={changeName}/>
-            Count
-            <input type="text" name="count" value={count} id="" onChange={changeCount}/>
-            <button onClick={() => countAdd(name,count)}>Add</button>
+            <div className="row">
+                <div className="col">
 
+            CounterName
+            <input type="text"  class="form-control" name="name" value={name} id="" onChange={changeName}/>
+                </div>
+                <div className="col">
+            Count
+            <input type="text"  class="form-control" name="count" value={count} id="" onChange={changeCount}/>
+                </div>
+                <div className="col">
+            <button class="btn btn-outline-secondary" onClick={() => countAdd(name,count)}>Add</button>
+
+                </div>
+
+
+            </div>
         </div>
     );
 }

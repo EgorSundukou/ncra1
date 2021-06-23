@@ -3,6 +3,7 @@ import './App.css';
 import Counter from "./Counter";
 import React, {useState} from "react";
 import NewCounter from "./NewCounter";
+import ConfirmDeleteCounter from "./ConfirmDeleteCounter";
 
 function App() {
 
@@ -53,7 +54,7 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div className="container">
       Total: {counters.reduce((acc, cur) => acc + cur.count, 0)}
       <button onClick={resetTotalCount}>Reset</button>
         {counters.map(el=><Counter key={el.id}
@@ -64,6 +65,7 @@ function App() {
                                    countRemove={countRemove}/>
             )}
       <NewCounter countAdd={countAdd}/>
+      {/*<ConfirmDeleteCounter/>*/}
     </div>
   );
 }
